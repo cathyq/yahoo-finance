@@ -1,6 +1,7 @@
 import time
 from yahoo_finance import Share
 
+# Collect 30 mins of Finance data on 5 companies, one value per minute
 nyt = Share('NYT')
 ibm = Share('IBM')
 google = Share('GOOG')
