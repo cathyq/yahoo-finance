@@ -19,5 +19,5 @@ for minute in range(30):
 	print "Facebook's stock price is $%s" % facebook.get_price()
 	linkedin.refresh()
 	print "Linkedin's stock price is $%s" % linkedin.get_price()
-	time.sleep(10)
+	time.sleep(60)
 
