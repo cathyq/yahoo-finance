@@ -11,3 +11,9 @@ for i in range(30):
 	print share.get_price()
 	time.sleep(60)
 
+# RUN SCRIPT IN PYTHON
+# python yahoo.py LNKD> linkedin.txt
+# python yahoo.py FB> facebook.txt
+# python yahoo.py IBM> ibm.txt
+# python yahoo.py YHOO> yahoo.txt
+# python yahoo.py NYT> nyt.txt
