@@ -1,16 +1,16 @@
-# convert our RDD of strings to numeric data so we can compute stats and remove the outliers.
-
+import math
 from pyspark import SparkContext
-from pyspark.mllib.feature import HashingTF, IDF
-path = '/Users/cathyq/code/yahoo-finance/yahoo_output'
+
 sc = SparkContext(appName = "yahoo-finance")
 
-distance = sc.wholeTextFiles("data")
-distanceNumerics = distance.map(lambda string: float(string))
-stats = distanceNumerics.stats()
-stddev = stats.stdev()
-mean = stats.mean()
-reasonableDistances = distanceNumerics.filter(
-	lambda x: math.fabs(x - mean) > 2 * stddev)
-print reasonableDistances.collect()
-reasonableDistances.saveAsTextFile(path)
+companies = ["ibm", "facebook", "nyt", "linkedin", "yahoo"]
+
+for company in companies:
+    data = sc.textFile("data/{0}.txt".format(company))
+    data = data.map(lambda line: float(line))
+    stats = data.stats()
+    stddev = stats.stdev()
+    mean = stats.mean()
+
+    outliers = data.filter(lambda x: math.fabs(x-mean) >= 2*stddev)
+    outliers.saveAsTextFile("{0}_outliers".format(company))
